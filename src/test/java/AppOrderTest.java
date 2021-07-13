@@ -111,6 +111,6 @@ public class AppOrderTest {
         List<WebElement> elements = driver.findElements(By.className("input__sub"));
         String text = elements.get(1).getText();
 
-        assertEquals("Поле обязательно для заполнения.", text.trim());
+        assertEquals("Поле обязательно для заполнения", text.trim());
     }
 }
