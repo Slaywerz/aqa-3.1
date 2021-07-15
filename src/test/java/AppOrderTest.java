@@ -37,8 +37,8 @@ public class AppOrderTest {
 
     @Test
     void shouldDoneOrder() {
-        driver.findElement(cssSelector("[class ='input__control'][type ='text']")).sendKeys("Андрей Семенов");
-        driver.findElement(cssSelector("[class ='input__control'][type ='tel']")).sendKeys("+12345678901");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей Семенов");
+        driver.findElement(cssSelector("[data-test-id=phone] input']")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
         String text = driver.findElement(cssSelector("[data-test-id='order-success']")).getText();
@@ -48,8 +48,8 @@ public class AppOrderTest {
 
     @Test
     void shouldDoneOrderWithDoubleSurname() {
-        driver.findElement(cssSelector("[class ='input__control'][type ='text']")).sendKeys("Семенов-Васильев Андрей");
-        driver.findElement(cssSelector("[class ='input__control'][type ='tel']")).sendKeys("+12345678901");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Семенов-Васильев Андрей");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
         String text = driver.findElement(cssSelector("[data-test-id='order-success']")).getText();
@@ -61,8 +61,8 @@ public class AppOrderTest {
 
     @Test
     void shouldShowInvalidName() {
-        driver.findElement(cssSelector("[class ='input__control'][type ='text']")).sendKeys("Andrey Semyonov");
-        driver.findElement(cssSelector("[class ='input__control'][type ='tel']")).sendKeys("+12345678901");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Andrey Semyonov");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
         String text = driver.findElement(cssSelector(".input__sub")).getText();
@@ -73,8 +73,8 @@ public class AppOrderTest {
 
     @Test
     void shouldShowInvalidPhoneNumber() {
-        driver.findElement(cssSelector("[class ='input__control'][type ='text']")).sendKeys("Андрей");
-        driver.findElement(cssSelector("[class ='input__control'][type ='tel']")).sendKeys("12345678901");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
         List<WebElement> elements = driver.findElements(By.className("input__sub"));
@@ -85,8 +85,8 @@ public class AppOrderTest {
 
     @Test
     void shouldShowInvalidCheckbox() {
-        driver.findElement(cssSelector("[class ='input__control'][type ='text']")).sendKeys("Андрей");
-        driver.findElement(cssSelector("[class ='input__control'][type ='tel']")).sendKeys("+12345678901");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".button__text")).click();
         String text = driver.findElement(cssSelector(".input_invalid .checkbox__text")).getCssValue("color");
 
@@ -95,17 +95,17 @@ public class AppOrderTest {
 
     @Test
     void shouldDoNotOrderWithoutFullName(){
-        driver.findElement(cssSelector("[class ='input__control'][type ='tel']")).sendKeys("+12345678901");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
-        String text = driver.findElement(cssSelector(".input__sub")).getText();
+        String text = driver.findElement(cssSelector(".input_invalid")).getText();
 
         assertEquals("Поле обязательно для заполнения", text.trim());
     }
 
     @Test
     void shouldDoNotOrderWithoutPhone(){
-        driver.findElement(cssSelector("[class ='input__control'][type ='text']")).sendKeys("Андрей");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
         List<WebElement> elements = driver.findElements(By.className("input__sub"));
