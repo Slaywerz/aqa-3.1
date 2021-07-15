@@ -57,6 +57,17 @@ public class AppOrderTest {
         assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
     }
 
+    @Test
+    void shouldDoneOrderWithDoubleFullName() {
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Семенов-Васильев Андрей-Сергей");
+        driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
+        driver.findElement(cssSelector(".checkbox__box")).click();
+        driver.findElement(cssSelector(".button__text")).click();
+        String text = driver.findElement(cssSelector("[data-test-id='order-success']")).getText();
+
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", text.trim());
+    }
+
     //Задача №2 - Проверка валидации
 
     @Test
