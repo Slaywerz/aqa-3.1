@@ -76,7 +76,7 @@ public class AppOrderTest {
         driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
-        String text = driver.findElement(cssSelector(".input__sub")).getText();
+        String text = driver.findElement(cssSelector(".input_invalid[data-test-id=name] .input__sub")).getText();
 
         assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
     }
@@ -84,19 +84,18 @@ public class AppOrderTest {
 
     @Test
     void shouldShowInvalidPhoneNumber() {
-        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей Семенов");
         driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
-        List<WebElement> elements = driver.findElements(By.className("input__sub"));
-        String text = elements.get(1).getText();
+        String text = driver.findElement(cssSelector(".input_invalid[data-test-id=phone] .input__sub")).getText();
 
         assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
     }
 
     @Test
     void shouldShowInvalidCheckbox() {
-        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей Семенов");
         driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".button__text")).click();
         String text = driver.findElement(cssSelector(".input_invalid .checkbox__text")).getCssValue("color");
@@ -109,17 +108,17 @@ public class AppOrderTest {
         driver.findElement(cssSelector("[data-test-id=phone] input")).sendKeys("+12345678901");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
-        String text = driver.findElement(cssSelector(".input_invalid [class='input__sub']")).getText();
+        String text = driver.findElement(cssSelector(".input_invalid[data-test-id='name'] [class='input__sub']")).getText();
 
         assertEquals("Поле обязательно для заполнения", text.trim());
     }
 
     @Test
     void shouldDoNotOrderWithoutPhone(){
-        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей");
+        driver.findElement(cssSelector("[data-test-id=name] input")).sendKeys("Андрей Семенов");
         driver.findElement(cssSelector(".checkbox__box")).click();
         driver.findElement(cssSelector(".button__text")).click();
-        String text = driver.findElement(cssSelector(".input_invalid [class='input__sub']")).getText();
+        String text = driver.findElement(cssSelector(".input_invalid[data-test-id='phone'] [class='input__sub']")).getText();
 
         assertEquals("Поле обязательно для заполнения", text.trim());
     }
